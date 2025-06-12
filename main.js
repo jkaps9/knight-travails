@@ -15,36 +15,43 @@ function knightMoves(start, end) {
   if (endX > 6 || endX < 0 || endY > 6 || endY < 0)
     throw new Error("Invalid end");
 
-  let path = [start];
+  if (startX === endX && startY === endY) {
+    console.log("The start is the end...");
+    return;
+  }
   // Breadth first search
   let queue = [];
-  let tempQueue = [];
-  queue.push(start);
-  let moveCounter = 0;
+  queue.push([start]);
+  let visited = [];
+
   while (queue.length > 0) {
     let current = queue.shift();
+    let position = current[current.length - 1];
 
-    if (current[0] === endX && current[1] === endY) {
-      console.log(`You made it in ${moveCounter} moves! Here's your path:`);
-      path.forEach((x) => {
-        console.log(x);
-      });
-      queue = [];
-      tempQueue = [];
-      return true;
-    }
-    tempQueue.push(...getLegalMoves(current));
-    if (queue.length === 0 && tempQueue.length > 0) {
-      queue.push(...tempQueue);
-      tempQueue = [];
-      moveCounter++;
-      console.log(moveCounter + ":");
-      console.log(JSON.stringify(queue));
+    if (
+      !visited.some(
+        (node) => node[0] === position[0] && node[1] === position[1]
+      )
+    ) {
+      visited.push(position);
+      if (position[0] === endX && position[1] === endY) {
+        console.log(
+          `You made it in ${current.length} moves! Here's your path:`
+        );
+        current.forEach((x) => {
+          console.log(x);
+        });
+        return;
+      }
+      const moves = getLegalMoves(position);
+      for (const move of moves) {
+        queue.push([...current, move]);
+      }
     }
   }
 
   console.log(`Sorry, we couldn't find a path from ${start} to ${end} =[`);
-  return false;
+  return;
 }
 
 function getLegalMoves(start) {
