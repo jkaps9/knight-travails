@@ -14,6 +14,23 @@ function knightMoves(start, end) {
   const endY = end[1];
   if (endX > 6 || endX < 0 || endY > 6 || endY < 0)
     throw new Error("Invalid end");
+
+  if (startX === endX && startY === endY) {
+    console.log([end]);
+    return;
+  }
+
+  // Breadth first search
+  let queue = [];
+  queue.push(start);
+
+  while (queue.length > 0) {
+    let current = queue.shift();
+    if (current[0] === endX && current[1] === endY) {
+      console.log(`You made it in ${3} moves! Here's your path:`);
+      return;
+    }
+  }
 }
 
 function getLegalMoves(start) {
@@ -41,5 +58,5 @@ function getLegalMoves(start) {
 
 // knightMoves([12, 3], [0, -1]); // Invalid start
 // knightMoves([3, 3], [0, -1]); // Invalid end
-
+knightMoves([3, 3], [3, 3]); //start equals end
 knightMoves([3, 3], [0, 0]);
