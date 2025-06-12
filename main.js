@@ -1,17 +1,24 @@
 // https://www.theodinproject.com/lessons/javascript-knights-travails
 
 function knightMoves(start, end) {
-  // shows the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way.
+  // Shows the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way.
   // You can think of the board as having 2-dimensional coordinates. Calling your function would therefore look like:
-  //knightMoves([0,0],[1,2]) // returns [[0,0],[1,2]]
+  // knightMoves([0,0],[1,2]) // returns [[0,0],[1,2]]
 
-  const arr = getLegalMoves(start);
-  console.log(arr);
+  const startX = start[0];
+  const startY = start[1];
+  if (startX > 6 || startX < 0 || startY > 6 || startY < 0)
+    throw new Error("Invalid start");
+
+  const endX = end[0];
+  const endY = end[1];
+  if (endX > 6 || endX < 0 || endY > 6 || endY < 0)
+    throw new Error("Invalid end");
 }
 
 function getLegalMoves(start) {
-  //return all legal moves from the starting position represented as [x,y]
-  //Its basic move is two steps forward and one step to the side or one step forward and two steps to the side. It can face any direction.
+  // Return all legal moves from the starting position represented as [x,y]
+  // Its basic move is two steps forward and one step to the side or one step forward and two steps to the side. It can face any direction.
   const moves = [];
 
   const x = start[0];
@@ -31,5 +38,8 @@ function getLegalMoves(start) {
 
   return moves;
 }
+
+// knightMoves([12, 3], [0, -1]); // Invalid start
+// knightMoves([3, 3], [0, -1]); // Invalid end
 
 knightMoves([3, 3], [0, 0]);
