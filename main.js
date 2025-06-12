@@ -7,12 +7,12 @@ function knightMoves(start, end) {
 
   const startX = start[0];
   const startY = start[1];
-  if (startX > 6 || startX < 0 || startY > 6 || startY < 0)
+  if (startX > 7 || startX < 0 || startY > 7 || startY < 0)
     throw new Error("Invalid start");
 
   const endX = end[0];
   const endY = end[1];
-  if (endX > 6 || endX < 0 || endY > 6 || endY < 0)
+  if (endX > 7 || endX < 0 || endY > 7 || endY < 0)
     throw new Error("Invalid end");
 
   if (startX === endX && startY === endY) {
@@ -62,16 +62,16 @@ function getLegalMoves(start) {
   const x = start[0];
   const y = start[1];
 
-  if (x < 6 && y < 5) moves.push([x + 1, y + 2]);
-  if (x > 0 && y < 5) moves.push([x - 1, y + 2]);
+  if (x < 7 && y < 6) moves.push([x + 1, y + 2]);
+  if (x > 0 && y < 6) moves.push([x - 1, y + 2]);
 
-  if (x < 6 && y > 1) moves.push([x + 1, y - 2]);
+  if (x < 7 && y > 1) moves.push([x + 1, y - 2]);
   if (x > 0 && y > 1) moves.push([x - 1, y - 2]);
 
-  if (x < 5 && y < 6) moves.push([x + 2, y + 1]);
-  if (x > 1 && y < 6) moves.push([x - 2, y + 1]);
+  if (x < 6 && y < 7) moves.push([x + 2, y + 1]);
+  if (x > 1 && y < 7) moves.push([x - 2, y + 1]);
 
-  if (x < 5 && y > 0) moves.push([x + 2, y - 1]);
+  if (x < 6 && y > 0) moves.push([x + 2, y - 1]);
   if (x > 1 && y > 0) moves.push([x - 2, y - 1]);
 
   return moves;
@@ -81,3 +81,7 @@ function getLegalMoves(start) {
 // knightMoves([3, 3], [0, -1]); // Invalid end
 // knightMoves([3, 3], [3, 3]); // start equals end
 knightMoves([3, 3], [4, 3]); // [3,3] [4,5] [2,4] [4,3]
+knightMoves([0, 0], [1, 2]); // [0,0] [1,2]
+knightMoves([0, 0], [3, 3]); // [[0,0],[2,1],[3,3]] or [[0,0],[1,2],[3,3]]
+knightMoves([3, 3], [0, 0]); // [[3,3],[2,1],[0,0]] or [[3,3],[1,2],[0,0]]
+knightMoves([0, 0], [7, 7]); // [[0,0],[2,1],[4,2],[6,3],[4,4],[6,5],[7,7]] or [[0,0],[2,1],[4,2],[6,3],[7,5],[5,6],[7,7]]
